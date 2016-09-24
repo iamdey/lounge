@@ -125,17 +125,8 @@ button {
 	padding: 0 30px;
 }
 
-::-moz-placeholder {
+::placeholder {
 	color: rgba(0, 0, 0, .35);
-	opacity: 1;
-}
-
-::-webkit-input-placeholder {
-	color: rgba(0, 0, 0, .35);
-}
-
-:-ms-input-placeholder {
-	color: rgba(0, 0, 0, .35) !important;
 }
 
 /* Icons */
@@ -201,7 +192,6 @@ button {
 	content: "\f08b"; /* http://fontawesome.io/icon/sign-out/ */
 	color: #ff4136;
 	display: inline-block;
-	-webkit-transform: rotate(180deg);
 	transform: rotate(180deg);
 }
 
@@ -267,9 +257,7 @@ button {
 #viewport {
 	height: 100%;
 	transition: all .4s;
-	-webkit-transform: translateZ(0);
 	transform: translateZ(0);
-	-webkit-perspective: 1000;
 	perspective: 1000;
 }
 
@@ -325,7 +313,6 @@ button {
 }
 
 #viewport.rt #chat .sidebar {
-	-webkit-transform: translate3d(180px, 0, 0);
 	transform: translate3d(180px, 0, 0);
 }
 
@@ -504,9 +491,6 @@ button {
 
 #sidebar,
 #footer {
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
 	user-select: none;
 }
 
@@ -557,9 +541,7 @@ button {
 	position: absolute;
 	right: 0;
 	top: 0;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-flex-direction: column;
 	flex-direction: column;
 }
 
@@ -666,16 +648,13 @@ button {
 }
 
 #windows #chat-container.active {
-	display: -webkit-flex;
 	display: flex;
-	-webkit-flex-direction: column;
 	flex-direction: column;
 }
 
 #chat {
 	position: relative;
 	overflow: hidden;
-	-webkit-flex: 1;
 	flex: 1;
 }
 
@@ -724,9 +703,7 @@ button {
 	right: 0;
 	width: 180px;
 	transition: all .4s;
-	-webkit-transform: translateZ(0);
 	transform: translateZ(0);
-	-webkit-perspective: 1000;
 	perspective: 1000;
 }
 
@@ -1199,7 +1176,6 @@ button {
 #form {
 	background: #eee;
 	border-top: 1px solid #ddd;
-	-webkit-flex: 0 0 auto;
 	flex: 0 0 auto;
 	padding: 5px;
 }
@@ -1211,9 +1187,7 @@ button {
 	margin: 0;
 	padding: 0;
 	background: white;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-align-items: flex-end;
 	align-items: flex-end;
 }
 
@@ -1227,11 +1201,7 @@ button {
 	height: 24px;
 	padding: 0 9px;
 	border-radius: 1px;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
 	user-select: none;
-	-webkit-flex: 0 0 auto;
 	flex: 0 0 auto;
 }
 
@@ -1255,7 +1225,6 @@ button {
 	margin: 5px;
 	padding: 0;
 	resize: none;
-	-webkit-flex: 1 0 auto;
 	flex: 1 0 auto;
 	align-self: center;
 }
@@ -1266,7 +1235,6 @@ button {
 	height: 32px;
 	transition: opacity .2s;
 	width: 32px;
-	-webkit-flex: 0 0 auto;
 	flex: 0 0 auto;
 }
 
@@ -1439,7 +1407,6 @@ button {
 
 .tooltipped-s:after,
 .tooltipped-n:after {
-	-webkit-transform: translateX(50%);
 	transform: translateX(50%);
 }
 
@@ -1447,7 +1414,6 @@ button {
 	right: 100%;
 	bottom: 50%;
 	margin-right: 5px;
-	-webkit-transform: translateY(50%);
 	transform: translateY(50%);
 }
 
@@ -1463,7 +1429,6 @@ button {
 	bottom: 50%;
 	left: 100%;
 	margin-left: 5px;
-	-webkit-transform: translateY(50%);
 	transform: translateY(50%);
 }
 
@@ -1582,12 +1547,10 @@ button {
 	}
 
 	#viewport.lt {
-		-webkit-transform: translate3d(220px, 0, 0);
 		transform: translate3d(220px, 0, 0);
 	}
 
 	#viewport.rt #chat .sidebar {
-		-webkit-transform: translate3d(-180px, 0, 0);
 		transform: translate3d(-180px, 0, 0);
 	}
 

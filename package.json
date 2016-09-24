@@ -18,6 +18,7 @@
     "build:font-awesome": "node scripts/build-fontawesome.js",
     "build:libs": "uglifyjs client/js/libs/*.js client/js/libs/jquery/*.js client/js/libs/handlebars/*.js -o client/js/libs.min.js --source-map client/js/libs.min.js.map --source-map-url libs.min.js.map -p relative",
     "build:handlebars": "handlebars client/views/ -e tpl -f client/js/lounge.templates.js",
+    "build:postcss": "postcss -u postcss-import -u autoprefixer -u cssnano -m file -o client/css/build.css client/css/style.css",
     "test": "npm-run-all -c test:mocha lint",
     "test:mocha": "mocha -r test/fixtures/env.js test/**/*.js",
     "lint": "npm-run-all -c lint:js lint:css",
@@ -58,13 +59,17 @@
     "ldapjs": "1.0.0"
   },
   "devDependencies": {
+    "autoprefixer": "6.4.1",
     "chai": "3.5.0",
+    "cssnano": "3.7.5",
     "eslint": "2.11.1",
     "font-awesome": "4.6.3",
     "handlebars": "4.0.5",
     "istanbul": "0.4.3",
     "mocha": "2.4.5",
     "npm-run-all": "2.1.1",
+    "postcss-cli": "2.6.0",
+    "postcss-import": "8.1.2",
     "stylelint": "6.6.0",
     "uglify-js": "2.7.3"
   }

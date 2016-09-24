@@ -17,6 +17,12 @@ module.exports = function(irc, network) {
 		}
 
 		var usersUpdated;
+		var supportsMultiPrefix = network.irc.network.cap.isEnabled("multi-prefix");
+		var userModeSortPriority = {};
+
+		irc.network.options.PREFIX.forEach(function(prefix, index) {
+			userModeSortPriority[prefix.symbol] = index;
+		});
 
 		for (var i = 0; i < data.modes.length; i++) {
 			var mode = data.modes[i];
@@ -27,6 +33,25 @@ module.exports = function(irc, network) {
 				var user = _.find(targetChan.users, {name: mode.param});
 				if (typeof user !== "undefined") {
 					usersUpdated = true;
+
+					if (supportsMultiPrefix) {
+						var add = mode.mode[0] === "+";
+						var changedMode = network.prefixLookup[mode.mode[1]];
+
+						if (add) {
+							if (user.modes.indexOf(changedMode) === -1) {
+								user.modes.push(changedMode);
+
+								user.modes.sort(function(a, b) {
+									return userModeSortPriority[a] - userModeSortPriority[b];
+								});
+							}
+						} else {
+							_.pull(user.modes, changedMode);
+						}
+
+						user.mode = (user.modes && user.modes[0]) || "";
+					}
 				}
 			}
 
@@ -41,9 +66,17 @@ module.exports = function(irc, network) {
 			targetChan.pushMessage(client, msg);
 		}
 
-		if (usersUpdated) {
+		if (!usersUpdated) {
+			return;
+		}
+
+		if (!supportsMultiPrefix) {
 			// TODO: This is horrible
 			irc.raw("NAMES", data.target);
+		} else {
+			client.emit("users", {
+				chan: targetChan.id
+			});
 		}
 	});
 };

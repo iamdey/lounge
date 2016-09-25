@@ -60,6 +60,8 @@ function Client(manager, name, config) {
 		config = {};
 	}
 	_.merge(this, {
+		attachedClientCount: 0,
+		lastActiveChannel: -1,
 		activeChannel: -1,
 		config: config,
 		id: id++,
@@ -366,6 +368,9 @@ Client.prototype.open = function(data) {
 		target.chan.unread = 0;
 		target.chan.highlight = false;
 		this.activeChannel = target.chan.id;
+		this.lastActiveChannel = this.activeChannel;
+
+		this.emit("open", this.activeChannel);
 	}
 };
 
@@ -433,6 +438,22 @@ Client.prototype.quit = function() {
 			network.irc.quit("Page closed");
 		}
 	});
+};
+
+Client.prototype.clientAttach = function() {
+	if (this.attachedClientCount === 0) {
+		this.activeChannel = this.lastActiveChannel;
+	}
+
+	this.attachedClientCount++;
+};
+
+Client.prototype.clientDetach = function() {
+	this.attachedClientCount--;
+
+	if (this.attachedClientCount === 0) {
+		this.activeChannel = -1;
+	}
 };
 
 var timer;

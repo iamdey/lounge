@@ -175,6 +175,16 @@ $(function() {
 		}
 	});
 
+	socket.on("open", function(id) {
+		if (chat.data("id") === id) {
+			return;
+		}
+
+		chat.data("id", id);
+
+		sidebar.find("[data-id='" + id + "']").trigger("click");
+	});
+
 	socket.on("join", function(data) {
 		var id = data.network;
 		var network = sidebar.find("#network-" + id);
@@ -761,14 +771,13 @@ $(function() {
 			return;
 		}
 
-		chat.data(
-			"id",
-			self.data("id")
-		);
-		socket.emit(
-			"open",
-			self.data("id")
-		);
+		var id = self.data("id");
+
+		// Only tell the server we opened a channel if we had a different channel open
+		if (chat.data("id") !== id) {
+			chat.data("id", id);
+			socket.emit("open", id);
+		}
 
 		sidebar.find(".active").removeClass("active");
 		self.addClass("active")
@@ -819,7 +828,7 @@ $(function() {
 
 		if (chan.data("needsNamesRefresh") === true) {
 			chan.data("needsNamesRefresh", false);
-			socket.emit("names", {target: self.data("id")});
+			socket.emit("names", {target: id});
 		}
 
 		if (screen.width > 768 && chan.hasClass("chan")) {
